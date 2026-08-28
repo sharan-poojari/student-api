@@ -97,14 +97,14 @@ const getMe = async (req, res) => {
 const updateUserRole = async (req, res) => {
     try {
         const id = req.params.id
-        if(req.body.role !=="user" && req.body.role !=="admin"){
+        if (req.body.role !== "user" && req.body.role !== "admin") {
             return res.status(400).json({
-                message:"Invalid role"
+                message: "Invalid role"
             })
         }
-        if(req.user.userId === req.params.id && req.body.role === "user" ){
+        if (req.user.userId === req.params.id && req.body.role === "user") {
             return res.status(400).json({
-                message:"You cannot remove your own admin role"
+                message: "You cannot remove your own admin role"
             })
         }
         const user = await User.findByIdAndUpdate(
@@ -125,11 +125,25 @@ const updateUserRole = async (req, res) => {
     } catch (error) {
         if (error.name === "CastError") {
             return res.status(400).json({
-                message:"Invalid ID"
+                message: "Invalid ID"
             })
         }
         res.status(500).json({
-            message:"Server error",
+            message: "Server error",
+            error: error.message
+        })
+    }
+}
+
+
+// GET API - Get All Users
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find().select("-password")
+        res.status(200).json({ users })
+    } catch (error) {
+        res.status(500).json({
+            message: "Server error",
             error: error.message
         })
     }
@@ -139,5 +153,6 @@ module.exports = {
     signup,
     login,
     getMe,
-    updateUserRole
+    updateUserRole,
+    getAllUsers
 }

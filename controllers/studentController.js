@@ -4,7 +4,7 @@ const User = require("../models/User")
 // GET API - All Students
 const getStudents = async (req, res) => {
     try {
-        const students = await Student.find()
+        const students = await Student.find({ user: req.user.userId })
         res.status(200).json({
             students
         })
@@ -19,7 +19,10 @@ const getStudents = async (req, res) => {
 // GET API - Get Student By Id
 const getStudentById = async (req, res) => {
     try {
-        const student = await Student.findById(req.params.id)
+        const student = await Student.findOne({
+            _id: req.params.id,
+            user: req.user.userId
+        })
         if (!student) {
             return res.status(404).json({
                 message: "Student not found"
@@ -53,7 +56,8 @@ const createStudent = async (req, res) => {
         }
         const student = await Student.create({
             name: req.body.name,
-            age: req.body.age
+            age: req.body.age,
+            user: req.user.userId
         })
         res.status(201).json(student)
     } catch (error) {
@@ -82,8 +86,10 @@ const updateStudent = async (req, res) => {
                 message: validationError
             })
         }
-        const student = await Student.findByIdAndUpdate(
-            id,
+        const student = await Student.findOneAndUpdate({
+            _id: req.params.id,
+            user: req.user.userId
+        },
             {
                 name: req.body.name,
                 age: req.body.age
@@ -135,7 +141,10 @@ const validateStudentData = (name, age) => {
 const deleteStudent = async (req, res) => {
     try {
         const id = req.params.id
-        const student = await Student.findByIdAndDelete(id)
+        const student = await Student.findOneAndDelete({
+            _id: req.params.id,
+            user: req.user.userId
+        })
         if (!student) {
             return res.status(404).json({
                 message: "Student not found"
