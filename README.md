@@ -1,60 +1,28 @@
-# Student API
+# Student Management System — Backend API
 
-A RESTful API built using **Node.js**, **Express.js**, **MongoDB**, and **Mongoose** following the **MVC Architecture**.
+A RESTful backend API for a Student Management System built with Node.js, Express.js, MongoDB, and Mongoose.
 
-## 🚀 Features
+## Features
 
-- Create Student
-- Get All Students
-- Update Student
-- Delete Student
+- User signup and login
+- JWT-based authentication
+- Protected API routes
+- Role-based authorization
+- Admin-only user management
+- Student CRUD operations
+- User-specific student management
+- MVC architecture
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - Node.js
 - Express.js
 - MongoDB
 - Mongoose
-- Git
-- GitHub
+- JWT
+- bcrypt
+- dotenv
 
-## 📁 Project Structure
-
-```text
-student-api
-│
-├── controllers
-├── models
-├── routes
-├── server.js
-├── package.json
-└── .gitignore
-```
-
-## ⚙️ Installation
-
-Clone the repository:
-
-```bash
-git clone <repository-url>
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Run the server:
-
-```bash
-node server.js
-```
-
-## 👨‍💻 Author
+## Author
 
 **Sharan Poojari**
-
-## Feature Login Branch
-
-This change was made in the feature-login branch.
